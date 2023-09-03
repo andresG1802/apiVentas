@@ -2,10 +2,7 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import db from '../db/connection';
 
-import userRoutes from '../routes/usuario';
-
-
-
+import userRoutes from '../routes/usuarios';
 
 class Server {
 
@@ -19,7 +16,7 @@ class Server {
 
     constructor() {
         this.app  = express();
-        this.port = process.env.PORT || '8000';
+        this.port = process.env.PORT || '8080';
 
         // Métodos iniciales
         this.dbConnection();
