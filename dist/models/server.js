@@ -16,12 +16,18 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const connection_1 = __importDefault(require("../db/connection"));
 const usuarios_1 = __importDefault(require("../routes/usuarios"));
+const productos_1 = __importDefault(require("../routes/productos"));
+const pedidos_1 = __importDefault(require("../routes/pedidos"));
+const detalles_pedidos_1 = __importDefault(require("../routes/detalles_pedidos"));
+const carrito_compras_1 = __importDefault(require("../routes/carrito_compras"));
 class Server {
     constructor() {
         this.apiPaths = {
             usuarios: '/api/usuarios',
             productos: '/api/productos',
-            ventas: '/api/ventas',
+            pedidos: '/api/pedidos',
+            detalles_pedidos: '/api/detalles_pedidos',
+            carrito_compras: '/api/carrito_compras'
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8080';
@@ -51,6 +57,10 @@ class Server {
     }
     routes() {
         this.app.use(this.apiPaths.usuarios, usuarios_1.default);
+        this.app.use(this.apiPaths.productos, productos_1.default);
+        this.app.use(this.apiPaths.pedidos, pedidos_1.default);
+        this.app.use(this.apiPaths.detalles_pedidos, detalles_pedidos_1.default);
+        this.app.use(this.apiPaths.carrito_compras, carrito_compras_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

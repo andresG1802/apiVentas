@@ -3,6 +3,10 @@ import cors from 'cors';
 import db from '../db/connection';
 
 import userRoutes from '../routes/usuarios';
+import productoRoutes from '../routes/productos';
+import pedidosRoutes from '../routes/pedidos';
+import detallesPedidoRoutes from '../routes/detalles_pedidos';
+import carritoComprasRoutes from '../routes/carrito_compras';
 
 class Server {
 
@@ -11,7 +15,9 @@ class Server {
     private apiPaths = {
         usuarios: '/api/usuarios',
         productos:'/api/productos',
-        ventas:'/api/ventas',
+        pedidos:'/api/pedidos',
+        detalles_pedidos:'/api/detalles_pedidos',
+        carrito_compras:'/api/carrito_compras'
     }
 
     constructor() {
@@ -51,7 +57,11 @@ class Server {
 
     routes()
     {
-        this.app.use(this.apiPaths.usuarios,userRoutes)
+        this.app.use(this.apiPaths.usuarios,userRoutes);
+        this.app.use(this.apiPaths.productos,productoRoutes);
+        this.app.use(this.apiPaths.pedidos,pedidosRoutes);
+        this.app.use(this.apiPaths.detalles_pedidos,detallesPedidoRoutes);
+        this.app.use(this.apiPaths.carrito_compras,carritoComprasRoutes);
     }
     listen() {
         this.app.listen( this.port, () => {

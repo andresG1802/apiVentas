@@ -12,18 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUsuario = exports.putUsuario = exports.postUsuario = exports.getUsuario = exports.getUsuarios = void 0;
-const usuario_1 = __importDefault(require("../models/usuario"));
-const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const usuarios = yield usuario_1.default.findAll();
-    res.json({ usuarios });
+exports.deletePedido = exports.putPedido = exports.postPedido = exports.getPedido = exports.getPedidos = void 0;
+const pedidos_1 = __importDefault(require("../models/pedidos"));
+const getPedidos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const pedidos = yield pedidos_1.default.findAll();
+    res.json({ pedidos });
 });
-exports.getUsuarios = getUsuarios;
-const getUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getPedidos = getPedidos;
+const getPedido = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const usuario = yield usuario_1.default.findByPk(id);
-    if (usuario) {
-        res.json(usuario);
+    const pedido = yield pedidos_1.default.findByPk(id);
+    if (pedido) {
+        res.json(pedido);
     }
     else {
         res.status(404).json({
@@ -31,23 +31,13 @@ const getUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
 });
-exports.getUsuario = getUsuario;
-const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getPedido = getPedido;
+const postPedido = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
-        const existeEmail = yield usuario_1.default.findOne({
-            where: {
-                correo_electronico: body.correo_electronico
-            }
-        });
-        if (existeEmail) {
-            return res.status(400).json({
-                msg: 'Ya existe un usuario con el email ' + body.email
-            });
-        }
-        const usuario = usuario_1.default.build(body);
-        yield usuario.save();
-        res.json(usuario);
+        const pedido = pedidos_1.default.build(body);
+        yield pedido.save();
+        res.json(pedido);
     }
     catch (error) {
         console.log(error);
@@ -56,19 +46,19 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
 });
-exports.postUsuario = postUsuario;
-const putUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.postPedido = postPedido;
+const putPedido = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
     try {
-        const usuario = yield usuario_1.default.findByPk(id);
-        if (!usuario) {
+        const pedido = yield pedidos_1.default.findByPk(id);
+        if (!pedido) {
             return res.status(404).json({
                 msg: 'No existe un usuario con el id ' + id
             });
         }
-        yield usuario.update(body);
-        res.json(usuario);
+        yield pedido.update(body);
+        res.json(pedido);
     }
     catch (error) {
         console.log(error);
@@ -77,18 +67,18 @@ const putUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
 });
-exports.putUsuario = putUsuario;
-const deleteUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.putPedido = putPedido;
+const deletePedido = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const usuario = yield usuario_1.default.findByPk(id);
-    if (!usuario) {
+    const pedido = yield pedidos_1.default.findByPk(id);
+    if (!pedido) {
         return res.status(404).json({
             msg: 'No existe un usuario con el id ' + id
         });
     }
-    yield usuario.update({ estado: false });
+    yield pedido.update({ estado: false });
     // await usuario.destroy();
-    res.json(usuario);
+    res.json(pedido);
 });
-exports.deleteUsuario = deleteUsuario;
-//# sourceMappingURL=usuario.js.map
+exports.deletePedido = deletePedido;
+//# sourceMappingURL=pedidos.js.map

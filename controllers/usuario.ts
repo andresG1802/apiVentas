@@ -37,7 +37,7 @@ export const postUsuario = async( req: Request , res: Response ) => {
         
         const existeEmail = await Usuario.findOne({
             where: {
-                email: body.email
+                correo_electronico: body.correo_electronico
             }
         });
 
